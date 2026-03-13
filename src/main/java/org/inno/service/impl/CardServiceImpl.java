@@ -5,9 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.inno.dao.model.CardModel;
-import org.inno.dao.model.UserModel;
 import org.inno.dao.repository.CardRepository;
-import org.inno.dao.repository.UserRepository;
 import org.inno.exception.CardLimitException;
 import org.inno.service.CardService;
 import org.inno.service.dto.CardDto;
@@ -21,8 +19,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;

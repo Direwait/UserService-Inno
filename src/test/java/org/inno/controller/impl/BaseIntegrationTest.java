@@ -23,7 +23,7 @@ public abstract class BaseIntegrationTest {
             .withDatabaseName("testdb")
             .withUsername("test")
             .withPassword("test")
-            .withReuse(false); // Для переиспользования контейнера
+            .withReuse(false);
 
     @DynamicPropertySource
     static void databaseProperties(DynamicPropertyRegistry registry) {

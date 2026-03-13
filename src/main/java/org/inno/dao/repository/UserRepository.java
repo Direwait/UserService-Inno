@@ -1,7 +1,6 @@
 package org.inno.dao.repository;
 
 import jakarta.persistence.criteria.JoinType;
-import jakarta.validation.constraints.NotBlank;
 import org.inno.dao.model.UserModel;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,6 +20,7 @@ public interface UserRepository extends JpaRepository<UserModel, UUID>, JpaSpeci
 
     static Specification<UserModel> filterByNameOrSurname(String search) {
         return (root, query, cb) -> {
+            assert query != null;
             if (Long.class != query.getResultType()) {
                 root.fetch("cards", JoinType.LEFT);
             }
