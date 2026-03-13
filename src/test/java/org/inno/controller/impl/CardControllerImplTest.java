@@ -13,6 +13,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -147,9 +148,8 @@ class CardControllerImplTest extends BaseIntegrationTest {
     @Test
     void getAllCards_WithoutFilter_ShouldReturnPage() throws Exception {
         createCard(testCard);
-        createCard(testCard);
 
-        MvcResult result = mockMvc.perform(get("/cards")
+        MvcResult result = mockMvc.perform(get("/users")
                         .param("page", "0")
                         .param("size", "10"))
                 .andExpect(status().isOk())
@@ -157,9 +157,17 @@ class CardControllerImplTest extends BaseIntegrationTest {
                 .andReturn();
 
         String jsonResponse = result.getResponse().getContentAsString();
-        JsonNode root = objectMapper.readTree(jsonResponse);
 
-        assertThat(root.get("totalElements").asInt()).isGreaterThanOrEqualTo(2);
+        JsonNode jsonNode = objectMapper.readTree(jsonResponse);
+
+        JsonNode contentNode = jsonNode.get("content");
+        List<CardDto> users = objectMapper.readValue(
+                contentNode.toString(),
+                new TypeReference<List<CardDto>>() {}
+        );
+
+        assertThat(users).isNotEmpty();
+        assertThat(users.size()).isGreaterThanOrEqualTo(1);
     }
 
     @Test

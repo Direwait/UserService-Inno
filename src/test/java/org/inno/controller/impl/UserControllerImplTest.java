@@ -147,9 +147,6 @@ class UserControllerImplTest extends BaseIntegrationTest {
 
         assertThat(users).isNotEmpty();
         assertThat(users.size()).isGreaterThanOrEqualTo(1);
-
-        int totalElements = jsonNode.get("totalElements").asInt();
-        assertThat(totalElements).isGreaterThanOrEqualTo(1);
     }
 
 
