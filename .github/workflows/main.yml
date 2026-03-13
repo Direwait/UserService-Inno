@@ -48,7 +48,7 @@ jobs:
           path: target/surefire-reports/
 
       - name: Package JAR
-        run: mvn package
+        run: mvn package -DskipTests
         
       - name: Upload JAR
         uses: actions/upload-artifact@v4
@@ -61,6 +61,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Download compiled classes
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: target/classes/
       
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -92,8 +98,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-jar
-          path: target/
-
+          path: .
+      
       - name: Build Docker image
         run: |
           docker build -t UserServise-Inno:latest .
